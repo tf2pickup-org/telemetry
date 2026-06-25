@@ -11,7 +11,7 @@ export function UsageCard(props: { usage: UsageAdoption[] }) {
               {metric.label}
             </span>
             <span class="shrink-0 text-right">
-              <span class="text-ash text-lg font-bold tabular-nums">
+              <span class="text-ash text-lg font-bold tabular-nums" safe>
                 {metric.total.toLocaleString('en-US')}
               </span>
               <span class="text-abru-light-50 block text-xs">

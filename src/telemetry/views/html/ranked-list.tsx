@@ -18,8 +18,10 @@ export function RankedList(props: { items: { label: string; value: number }[]; u
                 {item.label}
               </span>
               <span class="text-abru-light-50 shrink-0 tabular-nums">
-                <span class="text-ash font-semibold">{item.value.toLocaleString('en-US')}</span>{' '}
-                {unit}
+                <span class="text-ash font-semibold" safe>
+                  {item.value.toLocaleString('en-US')}
+                </span>{' '}
+                <span safe>{unit}</span>
               </span>
             </div>
             <div class="bg-abru-light-5 h-2 w-full overflow-hidden rounded-full">
