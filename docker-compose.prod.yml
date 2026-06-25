@@ -1,0 +1,29 @@
+services:
+  telemetry:
+    image: ghcr.io/tf2pickup-org/telemetry:stable
+    restart: unless-stopped
+    ports:
+      - '3000:3000'
+    environment:
+      NODE_ENV: production
+      MONGODB_URI: mongodb://mongo:27017/telemetry
+      # public url of the dashboard, used as the Steam OpenID realm/return url
+      PUBLIC_URL: https://telemetry.tf2pickup.org
+      # secret used to sign the dashboard session cookie (set a long random value)
+      SESSION_SECRET: ${SESSION_SECRET}
+      # steam id64s allowed to view the dashboard, comma-separated
+      ADMIN_STEAM_IDS: ${ADMIN_STEAM_IDS}
+      # running behind a reverse proxy: read the client IP from X-Forwarded-For
+      TRUST_PROXY: 'true'
+      RATE_LIMIT_MAX: '20'
+    depends_on:
+      - mongo
+
+  mongo:
+    image: mongo
+    restart: unless-stopped
+    volumes:
+      - mongo:/data/db
+
+volumes:
+  mongo:

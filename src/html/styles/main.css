@@ -1,0 +1,42 @@
+@import 'tailwindcss';
+@import './satoshi.css';
+
+@theme {
+  --font-sans:
+    Satoshi, ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+    'Segoe UI Symbol', 'Noto Color Emoji';
+
+  --color-abru: #1c1320;
+
+  --color-abru-light-3: #221d24;
+  --color-abru-light-5: #272129;
+  --color-abru-light-10: #332b36;
+  --color-abru-light-15: #3e3641;
+  --color-abru-light-20: #49424d;
+  --color-abru-light-25: #564d59;
+  --color-abru-light-30: #605b62;
+  --color-abru-light-35: #6b666e;
+  --color-abru-light-50: #8d898f;
+  --color-abru-light-55: #99959b;
+  --color-abru-light-60: #a6a0a6;
+  --color-abru-light-70: #bbb8bc;
+  --color-abru-light-75: #c7c4c7;
+  --color-abru-light-85: #dddcdd;
+
+  --color-abru-dark-3: #1a161b;
+  --color-abru-dark-6: #19161a;
+  --color-abru-dark-10: #181519;
+  --color-abru-dark-15: #171418;
+  --color-abru-dark-20: #161216;
+  --color-abru-dark-25: #141115;
+  --color-abru-dark-29: #131014;
+
+  --color-accent-200: #fdcfde;
+  --color-accent-400: #f84c82;
+  --color-accent-600: #f61059;
+  --color-accent: #f61059;
+  --color-accent-hover: #dd0e50;
+
+  --color-ash: #f4f4ed;
+  --color-alert: #ff9e1f;
+}
