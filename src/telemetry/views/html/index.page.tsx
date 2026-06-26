@@ -1,10 +1,23 @@
 import { Layout } from '../../../html/layout'
-import { getAdoption } from '../../get-adoption'
+import { getAdoption, type FeatureAdoption } from '../../get-adoption'
 import { FeatureCard } from './feature-card'
 import { IntegrationsCard } from './integrations-card'
 import { BreakdownBars } from './breakdown-bars'
 import { UsageCard } from './usage-card'
 import { RankedList } from './ranked-list'
+
+function groupFeatures(features: FeatureAdoption[]) {
+  const groups: { group: string | undefined; features: FeatureAdoption[] }[] = []
+  for (const feature of features) {
+    let bucket = groups.find(entry => entry.group === feature.group)
+    if (!bucket) {
+      bucket = { group: feature.group, features: [] }
+      groups.push(bucket)
+    }
+    bucket.features.push(feature)
+  }
+  return groups
+}
 
 export async function IndexPage() {
   const adoption = await getAdoption()
@@ -31,9 +44,23 @@ export async function IndexPage() {
         ) : (
           <>
             <h2 class="text-ash mb-3 text-xl font-bold">Features</h2>
-            <div class="mb-8 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-              {adoption.features.map(feature => (
-                <FeatureCard feature={feature} />
+            <div class="mb-8 flex flex-col gap-6">
+              {groupFeatures(adoption.features).map(({ group, features }) => (
+                <div class="flex flex-col gap-3">
+                  {group ? (
+                    <h3
+                      class="text-abru-light-75 text-sm font-semibold tracking-wide uppercase"
+                      safe
+                    >
+                      {group}
+                    </h3>
+                  ) : null}
+                  <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+                    {features.map(feature => (
+                      <FeatureCard feature={feature} />
+                    ))}
+                  </div>
+                </div>
               ))}
             </div>
 

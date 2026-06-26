@@ -1,6 +1,11 @@
 import { collections } from '../database/collections'
-import type { FeatureValue, SnapshotModel } from '../database/models/snapshot.model'
-import { featureCatalog, integrationCatalog, usageCatalog } from './feature-catalog'
+import type {
+  FeatureValue,
+  MetaEntry,
+  SnapshotMeta,
+  SnapshotModel,
+} from '../database/models/snapshot.model'
+import { humanizeKey } from './humanize-key'
 
 export interface ValueBreakdown {
   value: string
@@ -10,6 +15,7 @@ export interface ValueBreakdown {
 export interface FeatureAdoption {
   key: string
   label: string
+  group?: string
   /** how many instances reported this feature at all */
   reporting: number
   breakdown: ValueBreakdown[]
@@ -75,44 +81,71 @@ function breakdown(values: string[]): ValueBreakdown[] {
     .sort((a, b) => b.count - a.count || a.value.localeCompare(b.value))
 }
 
-function featureAdoption(snapshots: SnapshotModel[]): FeatureAdoption[] {
-  const keys = [
-    ...featureCatalog.map(feature => feature.key),
-    ...snapshots
-      .flatMap(snapshot => Object.keys(snapshot.features))
-      .filter(key => !featureCatalog.some(feature => feature.key === key)),
-  ].filter((key, index, all) => all.indexOf(key) === index)
+/**
+ * The display catalog (labels + order) is authored in tf2pickup and shipped in
+ * each snapshot's `meta`; the newest reporting version wins. Keys present in the
+ * data but missing from that catalog are appended with a humanized label.
+ */
+function newestMeta(snapshots: SnapshotModel[]): SnapshotMeta {
+  return (
+    [...snapshots]
+      .filter(snapshot => snapshot.meta)
+      .sort((a, b) =>
+        (b.version ?? '').localeCompare(a.version ?? '', undefined, { numeric: true }),
+      )
+      .at(0)?.meta ?? {}
+  )
+}
 
-  return keys.map(key => {
+function catalog(metaList: MetaEntry[] | undefined, dataKeys: string[]): MetaEntry[] {
+  const meta = metaList ?? []
+  const known = new Set(meta.map(entry => entry.key))
+  const extra = dataKeys
+    .filter((key, index, all) => all.indexOf(key) === index)
+    .filter(key => !known.has(key))
+    .map(key => ({ key, label: humanizeKey(key) }))
+  return [...meta, ...extra]
+}
+
+function featureAdoption(snapshots: SnapshotModel[], meta: SnapshotMeta): FeatureAdoption[] {
+  const dataKeys = snapshots.flatMap(snapshot => Object.keys(snapshot.features))
+  return catalog(meta.features, dataKeys).map(({ key, label, group }) => {
     const reported = snapshots
       .filter(snapshot => key in snapshot.features)
       .map(snapshot => formatValue(snapshot.features[key]!))
     return {
       key,
-      label: featureCatalog.find(feature => feature.key === key)?.label ?? key,
+      label,
+      ...(group === undefined ? {} : { group }),
       reporting: reported.length,
       breakdown: breakdown(reported),
     }
   })
 }
 
-function usageAdoption(snapshots: SnapshotModel[]): UsageAdoption[] {
-  const keys = [
-    ...usageCatalog.map(usage => usage.key),
-    ...snapshots
-      .flatMap(snapshot => Object.keys(snapshot.usage ?? {}))
-      .filter(key => !usageCatalog.some(usage => usage.key === key)),
-  ].filter((key, index, all) => all.indexOf(key) === index)
-
-  return keys.map(key => {
+function usageAdoption(snapshots: SnapshotModel[], meta: SnapshotMeta): UsageAdoption[] {
+  const dataKeys = snapshots.flatMap(snapshot => Object.keys(snapshot.usage ?? {}))
+  return catalog(meta.usage, dataKeys).map(({ key, label }) => {
     const values = snapshots.map(snapshot => snapshot.usage?.[key] ?? 0)
     return {
       key,
-      label: usageCatalog.find(usage => usage.key === key)?.label ?? key,
+      label,
       total: values.reduce((sum, value) => sum + value, 0),
       instancesUsing: values.filter(value => value > 0).length,
     }
   })
+}
+
+function integrationAdoption(
+  snapshots: SnapshotModel[],
+  meta: SnapshotMeta,
+): IntegrationAdoption[] {
+  const dataKeys = snapshots.flatMap(snapshot => Object.keys(snapshot.integrations))
+  return catalog(meta.integrations, dataKeys).map(({ key, label }) => ({
+    key,
+    label,
+    enabled: snapshots.filter(snapshot => snapshot.integrations[key]).length,
+  }))
 }
 
 function mapsAdoption(snapshots: SnapshotModel[]): MapAdoption[] {
@@ -143,6 +176,7 @@ function mapPoolAdoption(snapshots: SnapshotModel[]): MapPoolAdoption[] {
 
 export async function getAdoption(): Promise<Adoption> {
   const snapshots = await collections.snapshots.find({}).toArray()
+  const meta = newestMeta(snapshots)
 
   const versions = breakdown(
     snapshots.map(snapshot => snapshot.version).filter((v): v is string => v !== undefined),
@@ -151,13 +185,9 @@ export async function getAdoption(): Promise<Adoption> {
 
   return {
     instanceCount: snapshots.length,
-    features: featureAdoption(snapshots),
-    integrations: integrationCatalog.map(({ key, label }) => ({
-      key,
-      label,
-      enabled: snapshots.filter(snapshot => snapshot.integrations[key]).length,
-    })),
-    usage: usageAdoption(snapshots),
+    features: featureAdoption(snapshots, meta),
+    integrations: integrationAdoption(snapshots, meta),
+    usage: usageAdoption(snapshots, meta),
     maps: mapsAdoption(snapshots),
     mapPool: mapPoolAdoption(snapshots),
     versions,

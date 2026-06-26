@@ -26,13 +26,24 @@ Content-Type: application/json
     "games.voice_server_type": "mumble",
     "players.etf2l_account_required": false
   },
-  "integrations": { "discord": true, "serveme": true, "twitch": false }
+  "integrations": { "discord": true, "serveme": true, "twitch": false },
+  "meta": {
+    "features": [
+      { "key": "games.skill_suggestions", "label": "Skill suggestions (experimental)", "group": "Games" }
+    ],
+    "integrations": [{ "key": "discord", "label": "Discord" }]
+  }
 }
 ```
 
 Responses: `204` on success, `400` on an invalid payload, `429` when the per-IP rate limit is
 exceeded. Instances are deduplicated by `instanceId`; a snapshot expires 8 days after the last
 report.
+
+The optional `meta` block carries the **display labels and grouping** for the reported keys. It is
+authored in tf2pickup (the single source of truth) and shipped with each snapshot, so new entries
+need no change here — the dashboard takes labels/order from the newest reporting version and falls
+back to a humanized key for anything it hasn't been told about.
 
 ## Configuration
 

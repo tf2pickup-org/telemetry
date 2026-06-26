@@ -114,4 +114,47 @@ describe('getAdoption', () => {
     const adoption = await getAdoption()
     expect(adoption.mapPool[0]).toEqual({ name: 'cp_process_f12', instances: 2 })
   })
+
+  it('labels and groups features from the newest-version snapshot meta', async () => {
+    find.mockResolvedValue([
+      snapshot({
+        version: '4.9.0',
+        features: { 'games.skill_suggestions': true },
+        meta: { features: [{ key: 'games.skill_suggestions', label: 'Old label', group: 'Old' }] },
+      }),
+      snapshot({
+        version: '4.14.0',
+        features: { 'games.skill_suggestions': false },
+        meta: {
+          features: [
+            { key: 'games.skill_suggestions', label: 'Skill suggestions', group: 'Games' },
+          ],
+        },
+      }),
+    ])
+    const adoption = await getAdoption()
+    const feature = adoption.features.find(f => f.key === 'games.skill_suggestions')
+    expect(feature?.label).toBe('Skill suggestions')
+    expect(feature?.group).toBe('Games')
+  })
+
+  it('humanizes keys that have no meta label', async () => {
+    find.mockResolvedValue([snapshot({ features: { 'games.future_flag': true } })])
+    const adoption = await getAdoption()
+    const feature = adoption.features.find(f => f.key === 'games.future_flag')
+    expect(feature?.label).toBe('Games · Future flag')
+  })
+
+  it('labels integrations from meta and counts enabled', async () => {
+    find.mockResolvedValue([
+      snapshot({
+        integrations: { discord: true },
+        meta: { integrations: [{ key: 'discord', label: 'Discord' }] },
+      }),
+    ])
+    const adoption = await getAdoption()
+    const integration = adoption.integrations.find(i => i.key === 'discord')
+    expect(integration?.label).toBe('Discord')
+    expect(integration?.enabled).toBe(1)
+  })
 })

@@ -14,6 +14,7 @@ export async function upsertSnapshot(payload: TelemetryPayload) {
         usage: payload.usage,
         maps: payload.maps,
         mapPool: payload.mapPool,
+        meta: payload.meta,
         lastSeenAt: now,
       },
       ...(payload.version === undefined ? { $unset: { version: '' } } : {}),

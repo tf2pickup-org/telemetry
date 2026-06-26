@@ -19,6 +19,9 @@ function payload(overrides: Partial<TelemetryPayload> = {}): TelemetryPayload {
     usage: { skillSuggestionsApplied30d: 4 },
     maps: { process: 10 },
     mapPool: ['cp_process_f12'],
+    meta: {
+      features: [{ key: 'games.skill_suggestions', label: 'Skill suggestions', group: 'Games' }],
+    },
     ...overrides,
   }
 }
@@ -45,5 +48,13 @@ describe('upsertSnapshot', () => {
     await upsertSnapshot(payload({ version: undefined }))
     const update = updateOne.mock.calls[0]![1]
     expect(update.$unset).toEqual({ version: '' })
+  })
+
+  it('persists display metadata', async () => {
+    await upsertSnapshot(payload())
+    const update = updateOne.mock.calls[0]![1]
+    expect(update.$set.meta).toEqual({
+      features: [{ key: 'games.skill_suggestions', label: 'Skill suggestions', group: 'Games' }],
+    })
   })
 })
