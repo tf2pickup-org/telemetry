@@ -106,8 +106,8 @@ importers:
         specifier: 10.4.1
         version: 10.4.1(jiti@2.7.0)
       pino-princess:
-        specifier: 1.6.1
-        version: 1.6.1(typescript@6.0.3)
+        specifier: 1.6.3
+        version: 1.6.3(typescript@6.0.3)
       prettier:
         specifier: 3.8.3
         version: 3.8.3
@@ -1971,8 +1971,8 @@ packages:
   pino-abstract-transport@3.0.0:
     resolution: {integrity: sha512-wlfUczU+n7Hy/Ha5j9a/gZNy7We5+cXp8YL+X+PG8S0KXxw7n/JXA3c46Y0zQznIJ83URJiwy7Lh56WLokNuxg==}
 
-  pino-princess@1.6.1:
-    resolution: {integrity: sha512-MMfQDdFmzR4eE3V7HNhu7EZ/TIT40iRmaBU8dqM4fA0HGEmfO/QzpdpyZxIbcpnqhdCOfj50fr80FqT1rWPVWA==}
+  pino-princess@1.6.3:
+    resolution: {integrity: sha512-Qf+IUg5SnhJVPzDVYNpGH1cCseOo//aglM0F51mtydv2aLKz+klcmKfFtuUSxYYviTA7WtgSbXP5wx+jZCRvjw==}
     engines: {node: '>=22'}
     hasBin: true
 
@@ -2390,6 +2390,9 @@ packages:
 
   sonic-boom@4.2.1:
     resolution: {integrity: sha512-w6AxtubXa2wTXAUsZMMWERrsIRAdrK0Sc+FUytWvYAhBJLyuI4llrMIC1DtlNSdI99EI86KZum2MMq3EAZlF9Q==}
+
+  sonic-boom@5.0.0:
+    resolution: {integrity: sha512-znaUCPgeMBOX0vAuccd6GmnxtraZSB2y6VKepSPhG9P4A6Dvw2MKFVt12036vrSZqN9mWAt6oM1239/lPYyM4w==}
 
   source-map-js@1.2.1:
     resolution: {integrity: sha512-UXWMKhLOwVKb728IUtQPXxfYU+usdybtUrK/8uGE8CQMvrhOpwvzDBwj0QhSL7MQc7vIsISBG8VQ8+IDQxpfQA==}
@@ -4435,7 +4438,7 @@ snapshots:
     dependencies:
       split2: 4.2.0
 
-  pino-princess@1.6.1(typescript@6.0.3):
+  pino-princess@1.6.3(typescript@6.0.3):
     dependencies:
       chalk: 5.6.2
       cli-highlight: 2.1.11
@@ -4449,7 +4452,7 @@ snapshots:
       pino-abstract-transport: 3.0.0
       pretty-ms: 9.3.0
       pump: 3.0.4
-      sonic-boom: 4.2.1
+      sonic-boom: 5.0.0
     transitivePeerDependencies:
       - typescript
 
@@ -4810,6 +4813,10 @@ snapshots:
       - react-native-b4a
 
   sonic-boom@4.2.1:
+    dependencies:
+      atomic-sleep: 1.0.0
+
+  sonic-boom@5.0.0:
     dependencies:
       atomic-sleep: 1.0.0
 

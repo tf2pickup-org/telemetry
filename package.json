@@ -50,7 +50,7 @@
     "@types/openid": "2.0.5",
     "cpy-cli": "7.0.0",
     "eslint": "10.4.1",
-    "pino-princess": "1.6.1",
+    "pino-princess": "1.6.3",
     "prettier": "3.8.3",
     "prettier-plugin-tailwindcss": "0.8.0",
     "rimraf": "6.1.3",
