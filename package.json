@@ -49,7 +49,7 @@
     "@types/node": "24.13.1",
     "@types/openid": "2.0.5",
     "cpy-cli": "7.0.0",
-    "eslint": "10.4.1",
+    "eslint": "10.6.0",
     "pino-princess": "1.6.3",
     "prettier": "3.8.3",
     "prettier-plugin-tailwindcss": "0.8.0",
