@@ -30,7 +30,7 @@
     "date-fns": "4.4.0",
     "dotenv": "17.4.2",
     "es-toolkit": "1.49.0",
-    "fastify": "5.9.0",
+    "fastify": "5.10.0",
     "fastify-plugin": "5.1.0",
     "fastify-type-provider-zod": "6.1.0",
     "htmx.org": "2.0.10",
