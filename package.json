@@ -34,7 +34,7 @@
     "fastify-plugin": "6.0.0",
     "fastify-type-provider-zod": "7.0.0",
     "htmx.org": "2.0.10",
-    "mongodb": "7.4.0",
+    "mongodb": "7.5.0",
     "openid": "2.0.17",
     "package-up": "5.0.0",
     "pino": "10.3.1",
