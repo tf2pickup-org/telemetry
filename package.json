@@ -38,7 +38,7 @@
     "openid": "2.0.17",
     "package-up": "5.0.0",
     "pino": "10.3.1",
-    "postcss": "8.5.17",
+    "postcss": "8.5.18",
     "postcss-nested": "7.0.2",
     "tailwindcss": "4.3.2",
     "zod": "4.4.3"
