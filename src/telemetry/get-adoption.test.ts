@@ -94,6 +94,36 @@ describe('getAdoption', () => {
     expect(usage?.instancesUsing).toBe(2)
   })
 
+  it('derives fleet-wide ratios from summed counters instead of summing per-instance ratios', async () => {
+    find.mockResolvedValue([
+      snapshot({ usage: { games30d: 100, gamesForceEnded30d: 10, gamesForceEndedShare: 0.1 } }),
+      snapshot({ usage: { games30d: 300, gamesForceEnded30d: 6, gamesForceEndedShare: 0.02 } }),
+      snapshot({ usage: { gamesForceEnded30d: 5, gamesForceEndedShare: 0.9 } }),
+    ])
+    const adoption = await getAdoption()
+    const share = adoption.usage.find(u => u.key === 'gamesForceEndedShare')
+    expect(share?.total).toBe(0.04)
+    expect(share?.instancesUsing).toBe(2)
+    expect(adoption.usage.filter(u => u.key === 'gamesForceEndedShare')).toHaveLength(1)
+  })
+
+  it('places derived ratios right after their numerator counters', async () => {
+    find.mockResolvedValue([snapshot({ usage: { games30d: 100, gameReinitializations30d: 5 } })])
+    const adoption = await getAdoption()
+    const keys = adoption.usage.map(u => u.key)
+    expect(keys.indexOf('gameReinitializationsPerGame')).toBe(
+      keys.indexOf('gameReinitializations30d') + 1,
+    )
+  })
+
+  it('reports zero ratios when no instance reports games30d', async () => {
+    find.mockResolvedValue([snapshot({ usage: { gamesForceEnded30d: 5 } })])
+    const adoption = await getAdoption()
+    const share = adoption.usage.find(u => u.key === 'gamesForceEndedShare')
+    expect(share?.total).toBe(0)
+    expect(share?.instancesUsing).toBe(0)
+  })
+
   it('sums played maps across instances and ranks them', async () => {
     find.mockResolvedValue([
       snapshot({ maps: { process: 10, gullywash: 4 } }),
