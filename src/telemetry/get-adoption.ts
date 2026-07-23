@@ -123,17 +123,66 @@ function featureAdoption(snapshots: SnapshotModel[], meta: SnapshotMeta): Featur
   })
 }
 
+/**
+ * Ratio metrics cannot be summed across instances; older tf2pickup versions
+ * reported them per-instance, so those keys are dropped and the fleet-wide
+ * ratios are recomputed here from the summed counters of instances that
+ * report `games30d`.
+ */
+const legacyRatioKeys = new Set([
+  'gameReinitializationsPerGame',
+  'gameServerReassignmentsPerGame',
+  'gamesForceEndedShare',
+])
+
+const derivedRatios = [
+  {
+    key: 'gameReinitializationsPerGame',
+    label: 'Game reinitializations per game (30d)',
+    numerator: 'gameReinitializations30d',
+  },
+  {
+    key: 'gameServerReassignmentsPerGame',
+    label: 'Game server reassignments per game (30d)',
+    numerator: 'gameServerReassignments30d',
+  },
+  {
+    key: 'gamesForceEndedShare',
+    label: 'Games force-ended share (30d)',
+    numerator: 'gamesForceEnded30d',
+  },
+]
+
 function usageAdoption(snapshots: SnapshotModel[], meta: SnapshotMeta): UsageAdoption[] {
   const dataKeys = snapshots.flatMap(snapshot => Object.keys(snapshot.usage ?? {}))
-  return catalog(meta.usage, dataKeys).map(({ key, label }) => {
-    const values = snapshots.map(snapshot => snapshot.usage?.[key] ?? 0)
-    return {
+  const rows = catalog(meta.usage, dataKeys)
+    .filter(({ key }) => !legacyRatioKeys.has(key))
+    .map(({ key, label }) => {
+      const values = snapshots.map(snapshot => snapshot.usage?.[key] ?? 0)
+      return {
+        key,
+        label,
+        total: values.reduce((sum, value) => sum + value, 0),
+        instancesUsing: values.filter(value => value > 0).length,
+      }
+    })
+
+  const contributing = snapshots.filter(snapshot => (snapshot.usage?.['games30d'] ?? 0) > 0)
+  const games = contributing.reduce((sum, s) => sum + (s.usage?.['games30d'] ?? 0), 0)
+
+  for (const { key, label, numerator } of derivedRatios) {
+    const count = contributing.reduce((sum, s) => sum + (s.usage?.[numerator] ?? 0), 0)
+    const row = {
       key,
       label,
-      total: values.reduce((sum, value) => sum + value, 0),
-      instancesUsing: values.filter(value => value > 0).length,
+      total: games === 0 ? 0 : Math.round((count / games) * 1000) / 1000,
+      instancesUsing: contributing.length,
     }
-  })
+    const at = rows.findIndex(existing => existing.key === numerator)
+    rows.splice(at === -1 ? rows.length : at + 1, 0, row)
+  }
+
+  return rows
 }
 
 function integrationAdoption(
