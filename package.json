@@ -41,7 +41,7 @@
     "postcss": "8.5.26",
     "postcss-nested": "7.0.2",
     "tailwindcss": "4.3.3",
-    "zod": "4.4.3"
+    "zod": "4.5.1"
   },
   "devDependencies": {
     "@eslint/js": "10.0.1",
