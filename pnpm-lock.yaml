@@ -58,7 +58,7 @@ importers:
         version: 6.0.0
       fastify-type-provider-zod:
         specifier: 7.0.0
-        version: 7.0.0(@fastify/swagger@9.7.0(supports-color@7.2.0))(fastify@5.12.1)(openapi-types@12.1.3)(zod@4.5.2)
+        version: 7.0.0(@fastify/swagger@9.7.0(supports-color@7.2.0))(fastify@5.12.1)(openapi-types@12.1.3)(zod@4.5.4)
       htmx.org:
         specifier: 2.0.10
         version: 2.0.10
@@ -84,8 +84,8 @@ importers:
         specifier: 4.3.3
         version: 4.3.3
       zod:
-        specifier: 4.5.2
-        version: 4.5.2
+        specifier: 4.5.4
+        version: 4.5.4
     devDependencies:
       '@eslint/js':
         specifier: 10.0.1
@@ -2750,8 +2750,8 @@ packages:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
 
-  zod@4.5.2:
-    resolution: {integrity: sha512-XkYXCol10+ba/6F/cueWV+TezUeOqXW0hdeJt5CdXjTYeAgAQg5N03RQdJ80mhfFE72+pblvYMW4wy2Qp4Qbrg==}
+  zod@4.5.4:
+    resolution: {integrity: sha512-sC95tT5iHHH9gtpj6A81kh+NEaRAUFN+qlUPDUbRfOMvNf5QCBqsb3WgvnpVtK5Y+4UfA6KqufotuTvMGiTlsA==}
 
 snapshots:
 
@@ -3964,13 +3964,13 @@ snapshots:
 
   fastify-plugin@6.0.0: {}
 
-  fastify-type-provider-zod@7.0.0(@fastify/swagger@9.7.0(supports-color@7.2.0))(fastify@5.12.1)(openapi-types@12.1.3)(zod@4.5.2):
+  fastify-type-provider-zod@7.0.0(@fastify/swagger@9.7.0(supports-color@7.2.0))(fastify@5.12.1)(openapi-types@12.1.3)(zod@4.5.4):
     dependencies:
       '@fastify/error': 4.2.0
       '@fastify/swagger': 9.7.0(supports-color@7.2.0)
       fastify: 5.12.1
       openapi-types: 12.1.3
-      zod: 4.5.2
+      zod: 4.5.4
 
   fastify@5.12.1:
     dependencies:
@@ -5181,4 +5181,4 @@ snapshots:
 
   yocto-queue@0.1.0: {}
 
-  zod@4.5.2: {}
+  zod@4.5.4: {}
