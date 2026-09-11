@@ -35,7 +35,7 @@
     "fastify-type-provider-zod": "7.0.0",
     "htmx.org": "2.0.10",
     "mongodb": "7.6.0",
-    "openid": "2.0.17",
+    "openid": "2.0.18",
     "package-up": "5.0.0",
     "pino": "10.3.1",
     "postcss": "8.5.28",
