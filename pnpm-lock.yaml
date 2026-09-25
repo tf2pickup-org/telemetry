@@ -18,8 +18,8 @@ importers:
         specifier: 11.2.0
         version: 11.2.0
       '@fastify/secure-session':
-        specifier: 8.3.0
-        version: 8.3.0(bare-events@2.9.1)
+        specifier: 8.4.0
+        version: 8.4.0(bare-events@2.9.1)
       '@fastify/sensible':
         specifier: 6.0.5
         version: 6.0.5
@@ -396,8 +396,8 @@ packages:
   '@fastify/rate-limit@11.2.0':
     resolution: {integrity: sha512-X7osJd4XSvMoejYrnJkSZYYjY1eNYoBqhjlzf1RakC2204qExFqZFTKj5+T7VuzA/iUI9Z3UoSqQRkB2HpG0oQ==}
 
-  '@fastify/secure-session@8.3.0':
-    resolution: {integrity: sha512-jyXbYWAp5MCaCA+7idsV+Op3kMN/oDtskZ0SE3QPl53Lo0GFF7p/lk1UEliGaT0OSX+RGSrd2gQlUu1ta1t7yQ==}
+  '@fastify/secure-session@8.4.0':
+    resolution: {integrity: sha512-S1fv1OF0lprcFB/c17k/T2BXElv2r5rlwPfWtPr4Tb7Evp4Z9Azegi0AnMrWnNNgUZsqJ1FWkFtU1r9ySuRFAg==}
     hasBin: true
 
   '@fastify/send@4.1.0':
@@ -2960,10 +2960,10 @@ snapshots:
       ip-address: 10.4.0
       toad-cache: 3.7.1
 
-  '@fastify/secure-session@8.3.0(bare-events@2.9.1)':
+  '@fastify/secure-session@8.4.0(bare-events@2.9.1)':
     dependencies:
       '@fastify/cookie': 11.0.2
-      fastify-plugin: 5.1.0
+      fastify-plugin: 6.0.0
       sodium-native: 5.1.0(bare-events@2.9.1)
     transitivePeerDependencies:
       - bare-abort-controller
