@@ -18,8 +18,8 @@ importers:
         specifier: 11.2.1
         version: 11.2.1
       '@fastify/secure-session':
-        specifier: 8.4.0
-        version: 8.4.0(bare-events@2.9.1)
+        specifier: 8.4.1
+        version: 8.4.1(bare-events@2.9.1)
       '@fastify/sensible':
         specifier: 6.0.7
         version: 6.0.7
@@ -396,8 +396,8 @@ packages:
   '@fastify/rate-limit@11.2.1':
     resolution: {integrity: sha512-uTQjii3tJUnb6ZyEMcunuvKE3FDKNZEaPpxdyWADDgthHnUV1swdvwuiZfi3DDDgxm1iBrhOkQ/w0yDBQ8qJtA==}
 
-  '@fastify/secure-session@8.4.0':
-    resolution: {integrity: sha512-S1fv1OF0lprcFB/c17k/T2BXElv2r5rlwPfWtPr4Tb7Evp4Z9Azegi0AnMrWnNNgUZsqJ1FWkFtU1r9ySuRFAg==}
+  '@fastify/secure-session@8.4.1':
+    resolution: {integrity: sha512-V9khuSlcbpupL3ZVKvAsnPtxFWDj41946W17vmRYvL4Ov57lh7ZVyYYioB4SYNf7xdV8qa+ZRQ86Ni9sBE2oQQ==}
     hasBin: true
 
   '@fastify/send@4.1.0':
@@ -2951,7 +2951,7 @@ snapshots:
       ip-address: 10.4.0
       toad-cache: 3.7.1
 
-  '@fastify/secure-session@8.4.0(bare-events@2.9.1)':
+  '@fastify/secure-session@8.4.1(bare-events@2.9.1)':
     dependencies:
       '@fastify/cookie': 11.0.2
       fastify-plugin: 6.0.0

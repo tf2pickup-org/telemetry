@@ -19,7 +19,7 @@
     "@fastify/autoload": "6.5.1",
     "@fastify/helmet": "13.1.2",
     "@fastify/rate-limit": "11.2.1",
-    "@fastify/secure-session": "8.4.0",
+    "@fastify/secure-session": "8.4.1",
     "@fastify/sensible": "6.0.7",
     "@fastify/static": "10.1.5",
     "@kitajs/fastify-html-plugin": "4.2.1",
