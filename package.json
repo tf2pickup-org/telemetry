@@ -21,7 +21,7 @@
     "@fastify/rate-limit": "11.2.1",
     "@fastify/secure-session": "8.4.1",
     "@fastify/sensible": "6.0.7",
-    "@fastify/static": "10.1.5",
+    "@fastify/static": "10.1.6",
     "@kitajs/fastify-html-plugin": "4.2.1",
     "@kitajs/html": "4.2.13",
     "@kitajs/ts-html-plugin": "4.1.4",
