@@ -187,4 +187,31 @@ describe('getAdoption', () => {
     expect(integration?.label).toBe('Discord')
     expect(integration?.enabled).toBe(1)
   })
+
+  it('summarizes the queues of instances that report them', async () => {
+    const queue = (gamemode: string, enabled: boolean, restricted = false) => ({
+      gamemode,
+      launchMode: 'auto',
+      enabled,
+      hasSkillThreshold: restricted,
+      requireVerification: false,
+    })
+    find.mockResolvedValue([
+      snapshot({ queues: [queue('6v6', true), queue('9v9', true), queue('bball', false)] }),
+      snapshot({ queues: [queue('6v6', true), queue('6v6', true, true)] }),
+      snapshot({ queues: [queue('ultiduo', true)] }),
+      snapshot(),
+    ])
+    const adoption = await getAdoption()
+    expect(adoption.queues).toEqual({
+      reporting: 3,
+      multiQueue: 2,
+      gamemodes: [
+        { value: '6v6', count: 2 },
+        { value: '9v9', count: 1 },
+        { value: 'ultiduo', count: 1 },
+      ],
+      restricted: 1,
+    })
+  })
 })

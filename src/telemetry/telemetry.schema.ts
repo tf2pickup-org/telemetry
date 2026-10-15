@@ -18,6 +18,16 @@ const metaEntrySchema = z.object({
 
 const metaListSchema = z.array(metaEntrySchema).max(maxKeys)
 
+const maxQueues = 50
+
+const queueSchema = z.object({
+  gamemode: z.string().max(40),
+  launchMode: z.string().max(40),
+  enabled: z.boolean(),
+  hasSkillThreshold: z.boolean(),
+  requireVerification: z.boolean(),
+})
+
 export const telemetrySchema = z.object({
   instanceId: z.string().min(1).max(128),
   version: z.string().max(40).optional(),
@@ -27,6 +37,8 @@ export const telemetrySchema = z.object({
   usage: boundedRecord(z.number(), maxKeys).default({}),
   maps: boundedRecord(z.number().nonnegative(), maxMapKeys).default({}),
   mapPool: z.array(z.string().max(80)).max(maxMapKeys).default([]),
+  // absent on instances from before multi-queue
+  queues: z.array(queueSchema).max(maxQueues).optional(),
   meta: z
     .object({
       features: metaListSchema.optional(),

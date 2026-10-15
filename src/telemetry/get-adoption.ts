@@ -48,6 +48,17 @@ export interface MapPoolAdoption {
   instances: number
 }
 
+export interface QueueAdoption {
+  /** instances reporting their queues (multi-queue versions) */
+  reporting: number
+  /** of those, instances with more than one enabled queue */
+  multiQueue: number
+  /** instances with at least one enabled queue per gamemode */
+  gamemodes: ValueBreakdown[]
+  /** instances with an enabled queue that has a skill threshold or requires verification */
+  restricted: number
+}
+
 export interface Adoption {
   instanceCount: number
   features: FeatureAdoption[]
@@ -57,6 +68,7 @@ export interface Adoption {
   mapPool: MapPoolAdoption[]
   versions: ValueBreakdown[]
   queueConfigs: ValueBreakdown[]
+  queues: QueueAdoption
 }
 
 const topMapsShown = 25
@@ -223,6 +235,20 @@ function mapPoolAdoption(snapshots: SnapshotModel[]): MapPoolAdoption[] {
     .slice(0, topMapsShown)
 }
 
+function queueAdoption(snapshots: SnapshotModel[]): QueueAdoption {
+  const enabled = snapshots.flatMap(snapshot =>
+    snapshot.queues ? [snapshot.queues.filter(queue => queue.enabled)] : [],
+  )
+  return {
+    reporting: enabled.length,
+    multiQueue: enabled.filter(queues => queues.length > 1).length,
+    gamemodes: breakdown(enabled.flatMap(queues => [...new Set(queues.map(q => q.gamemode))])),
+    restricted: enabled.filter(queues =>
+      queues.some(queue => queue.hasSkillThreshold || queue.requireVerification),
+    ).length,
+  }
+}
+
 export async function getAdoption(): Promise<Adoption> {
   const snapshots = await collections.snapshots.find({}).toArray()
   const meta = newestMeta(snapshots)
@@ -241,5 +267,6 @@ export async function getAdoption(): Promise<Adoption> {
     mapPool: mapPoolAdoption(snapshots),
     versions,
     queueConfigs,
+    queues: queueAdoption(snapshots),
   }
 }

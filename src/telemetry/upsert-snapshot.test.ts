@@ -47,7 +47,23 @@ describe('upsertSnapshot', () => {
   it('unsets version when absent', async () => {
     await upsertSnapshot(payload({ version: undefined }))
     const update = updateOne.mock.calls[0]![1]
-    expect(update.$unset).toEqual({ version: '' })
+    expect(update.$unset).toEqual({ version: '', queues: '' })
+  })
+
+  it('persists queues when reported', async () => {
+    const queues = [
+      {
+        gamemode: '6v6',
+        launchMode: 'auto',
+        enabled: true,
+        hasSkillThreshold: false,
+        requireVerification: false,
+      },
+    ]
+    await upsertSnapshot(payload({ queues }))
+    const update = updateOne.mock.calls[0]![1]
+    expect(update.$set.queues).toEqual(queues)
+    expect(update.$unset).toBeUndefined()
   })
 
   it('persists display metadata', async () => {
