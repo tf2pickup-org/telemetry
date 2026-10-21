@@ -78,8 +78,8 @@ importers:
         specifier: 8.5.31
         version: 8.5.31
       postcss-nested:
-        specifier: 7.0.2
-        version: 7.0.2(postcss@8.5.31)
+        specifier: 9.0.0
+        version: 9.0.0(postcss@8.5.31)
       tailwindcss:
         specifier: 4.3.3
         version: 4.3.3
@@ -2087,9 +2087,9 @@ packages:
     peerDependencies:
       postcss: ^8.5.26
 
-  postcss-nested@7.0.2:
-    resolution: {integrity: sha512-5osppouFc0VR9/VYzYxO03VaDa3e8F23Kfd6/9qcZTUI8P58GIYlArOET2Wq0ywSl2o2PjELhYOFI4W7l5QHKw==}
-    engines: {node: '>=18.0'}
+  postcss-nested@9.0.0:
+    resolution: {integrity: sha512-cYlRG8MiABEAPvxMj1ms9Ame0Xi31AlSe0pY9I61dhUOKUZ6PQU/4i0WdVetUYKlowi3552nnbjhdYYbf2o7UA==}
+    engines: {node: ^22.0.0 || ^24.0.0 || >= 26.0.0}
     peerDependencies:
       postcss: ^8.2.14
 
@@ -2173,6 +2173,10 @@ packages:
     resolution: {integrity: sha512-KvvtD7SrlBP7dlgkBghEE3r84CABm5SmV2aNcG4oCA+qDnJ/tvKonFVvwWAyyWUEwxuNawdfEAZKP9zM3oZ2Uw==}
     engines: {node: '>=4'}
 
+  postcss-selector-parser@7.1.7:
+    resolution: {integrity: sha512-wWBro/7hJ40ye6TPiXkUQoXKCw23xSsjriUvqd7Uls9Sso3oLiON1flc18cCdnjgCRXw4fBVqUJJeOdDTh3P3g==}
+    engines: {node: '>=4'}
+
   postcss-svgo@8.0.4:
     resolution: {integrity: sha512-cmxRK3zz5BLFO/r/crOHy4QosyNCHpyAG9fOjtOSAEKkajcAK5xyURRWcotPOXcz88VbzIrYJCWVAGjrX4GeJw==}
     engines: {node: ^22.11.0 || ^24.11.0 || >=26.0}
@@ -2187,10 +2191,6 @@ packages:
 
   postcss-value-parser@4.2.0:
     resolution: {integrity: sha512-1NNCs6uurfkVbeXG4S8JFT9t19m45ICnif8zWLd5oPSZ50QnwMfK+H3jv408d4jw/7Bttv5axS5IiHoLaVNHeQ==}
-
-  postcss@8.5.30:
-    resolution: {integrity: sha512-zkd+e9S1AQHhmaBKye9zlFHWjOwVgqXl1q3ECYy8561K7qxR2cREf/STLskulBFd78k6AOFeA+ff1TtEzk9bAA==}
-    engines: {node: ^10 || ^12 || >=14}
 
   postcss@8.5.31:
     resolution: {integrity: sha512-YUbWYCgErwnMAVkjUnYa+KlMBzGpHwiIt/DE7f0G33AuX2LH9UcTk6KgWxd3zRU+pN3u/C+Xl3EnMLM4Hea7Sg==}
@@ -4621,10 +4621,10 @@ snapshots:
       postcss: 8.5.31
       postcss-selector-parser: 7.1.5
 
-  postcss-nested@7.0.2(postcss@8.5.31):
+  postcss-nested@9.0.0(postcss@8.5.31):
     dependencies:
       postcss: 8.5.31
-      postcss-selector-parser: 7.1.4
+      postcss-selector-parser: 7.1.7
 
   postcss-normalize-charset@8.0.3(postcss@8.5.31):
     dependencies:
@@ -4698,6 +4698,11 @@ snapshots:
       cssesc: 3.0.0
       util-deprecate: 1.0.2
 
+  postcss-selector-parser@7.1.7:
+    dependencies:
+      cssesc: 3.0.0
+      util-deprecate: 1.0.2
+
   postcss-svgo@8.0.4(postcss@8.5.31):
     dependencies:
       postcss: 8.5.31
@@ -4710,12 +4715,6 @@ snapshots:
       postcss-selector-parser: 7.1.5
 
   postcss-value-parser@4.2.0: {}
-
-  postcss@8.5.30:
-    dependencies:
-      nanoid: 3.3.20
-      picocolors: 1.1.1
-      source-map-js: 1.2.2
 
   postcss@8.5.31:
     dependencies:
@@ -5089,7 +5088,7 @@ snapshots:
     dependencies:
       lightningcss: 1.32.0
       picomatch: 4.0.7
-      postcss: 8.5.30
+      postcss: 8.5.31
       rolldown: 1.1.2
       tinyglobby: 0.2.17
     optionalDependencies:
