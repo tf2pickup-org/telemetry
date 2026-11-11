@@ -14,6 +14,15 @@ export interface SnapshotMeta {
   usage?: MetaEntry[]
 }
 
+/** one of the instance's queues; slugs and names are never reported */
+export interface QueueSnapshot {
+  gamemode: string
+  launchMode: string
+  enabled: boolean
+  hasSkillThreshold: boolean
+  requireVerification: boolean
+}
+
 export interface SnapshotModel {
   /** stable, anonymous per-instance identifier (sha256 of the instance url) */
   instanceId: string
@@ -30,6 +39,8 @@ export interface SnapshotModel {
   maps?: Record<string, number>
   /** map names in the instance's configured pool (absent on pre-usage snapshots) */
   mapPool?: string[]
+  /** every queue the instance has (absent on pre-multi-queue snapshots) */
+  queues?: QueueSnapshot[]
   /** display labels/order for the reported keys (absent on pre-meta snapshots) */
   meta?: SnapshotMeta
   lastSeenAt: Date

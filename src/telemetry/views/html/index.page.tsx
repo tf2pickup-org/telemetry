@@ -94,6 +94,23 @@ export async function IndexPage() {
                 <BreakdownBars items={adoption.queueConfigs} total={adoption.instanceCount} />
               </div>
               <div class="bg-abru-light-3 border-abru-light-15 flex flex-col gap-4 rounded-xl border p-5">
+                <h3 class="text-ash font-bold">Queues</h3>
+                <p class="text-abru-light-50 text-sm">
+                  <span class="text-ash font-semibold tabular-nums">
+                    {adoption.queues.multiQueue}
+                  </span>{' '}
+                  of {adoption.queues.reporting} run several queues,{' '}
+                  <span class="text-ash font-semibold tabular-nums">
+                    {adoption.queues.restricted}
+                  </span>{' '}
+                  a restricted one
+                </p>
+                <BreakdownBars
+                  items={adoption.queues.gamemodes}
+                  total={adoption.queues.reporting}
+                />
+              </div>
+              <div class="bg-abru-light-3 border-abru-light-15 flex flex-col gap-4 rounded-xl border p-5">
                 <h3 class="text-ash font-bold">Version</h3>
                 <BreakdownBars
                   items={adoption.versions}
