@@ -25,7 +25,7 @@
     "@kitajs/fastify-html-plugin": "4.2.1",
     "@kitajs/html": "4.2.13",
     "@kitajs/ts-html-plugin": "4.1.4",
-    "@tailwindcss/postcss": "4.3.3",
+    "@tailwindcss/postcss": "4.3.5",
     "cssnano": "8.0.5",
     "date-fns": "4.4.0",
     "dotenv": "17.4.2",
@@ -40,7 +40,7 @@
     "pino": "10.4.0",
     "postcss": "8.5.32",
     "postcss-nested": "9.0.1",
-    "tailwindcss": "4.3.3",
+    "tailwindcss": "4.3.5",
     "zod": "4.6.7"
   },
   "devDependencies": {
