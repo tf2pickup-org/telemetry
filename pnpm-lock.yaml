@@ -66,8 +66,8 @@ importers:
         specifier: 7.7.0
         version: 7.7.0
       openid:
-        specifier: 2.0.18
-        version: 2.0.18(debug@4.4.3(supports-color@7.2.0))(supports-color@7.2.0)
+        specifier: 2.0.19
+        version: 2.0.19(debug@4.4.3(supports-color@7.2.0))(supports-color@7.2.0)
       package-up:
         specifier: 5.0.0
         version: 5.0.0
@@ -1919,8 +1919,8 @@ packages:
   openapi-types@12.1.3:
     resolution: {integrity: sha512-N4YtSYJqghVu4iek2ZUvcN/0aqH1kRDuNqzcycDxhOUpg7GdvLa2F3DgS6yBNhInhv2r/6I0Flkn7CqL8+nIcw==}
 
-  openid@2.0.18:
-    resolution: {integrity: sha512-jYhAOlhdj4P38sKc848Azlz7HuI5XywQpT/d0PjLZLkLrMVMeJWci7+wjZ/A2YDZg3S2zDMjAgyJv/DXjVc+fA==}
+  openid@2.0.19:
+    resolution: {integrity: sha512-P5yhKoAVjrvBcFk1dnB8nKdfqhXngBlmcHNYMyEiRwwTWCwLzgE1gXsxrE86jJvpxtSYdNoSr5mtZyAf3abgUw==}
     engines: {node: '>= 0.6.0'}
 
   optionator@0.9.4:
@@ -4453,7 +4453,7 @@ snapshots:
 
   openapi-types@12.1.3: {}
 
-  openid@2.0.18(debug@4.4.3(supports-color@7.2.0))(supports-color@7.2.0):
+  openid@2.0.19(debug@4.4.3(supports-color@7.2.0))(supports-color@7.2.0):
     dependencies:
       axios: 1.18.1(debug@4.4.3(supports-color@7.2.0))(supports-color@7.2.0)
       qs: 6.15.3
