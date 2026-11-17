@@ -20,7 +20,7 @@
     "@fastify/helmet": "13.2.0",
     "@fastify/rate-limit": "11.2.2",
     "@fastify/secure-session": "8.4.2",
-    "@fastify/sensible": "6.0.7",
+    "@fastify/sensible": "6.0.8",
     "@fastify/static": "10.1.11",
     "@kitajs/fastify-html-plugin": "4.2.1",
     "@kitajs/html": "4.2.13",
